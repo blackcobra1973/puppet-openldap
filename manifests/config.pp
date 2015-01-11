@@ -64,7 +64,6 @@ class openldap::config(
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-#    notify  => Exec['ldap-config'],
     require => File[$config_dir],
   }
 
@@ -75,34 +74,16 @@ class openldap::config(
     owner   => 'root',
     group   => 'root',
     mode    => '0700',
-#    notify  => Exec['ldap-config'],
+    notify  => Exec['ldap-config'],
     require => File[$config_dir],
   }
 
-
   ### Create the basic slapd.d configuration based on slapd.conf
-#  exec { 'ldap-config':
-#    path        => '/usr/local/git/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin',
-#    command     => 'rm -rf /etc/openldap/slapd.d/*; chmod 777 /etc/openldap/slapd.d; slaptest -f /etc/openldap/slapd.conf -F /etc/openldap/slapd.d',
-#    refreshonly => true,
-#    user        => 'root',
-#    notify      => Exec['chmod_slapd.d'],
-#  }
-
-  ### Set the correct file permissions
-#  exec { 'chmod_slapd.d':
-#    path        => '/usr/local/git/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin',
-#    command     => 'chown -R ldap. /etc/openldap/slapd.d; chmod -R u+rwX,g-rwx,o-rwx /etc/openldap/slapd.d',
-#    refreshonly => true,
-#    user        => 'root',
-#    notify      => Exec['chmod_data_dir'],
-#  }
-
-#  exec { 'chmod_data_dir':
-#    path        => '/usr/local/git/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin',
-#    command     => "chown -R ldap. ${data_dir}; chmod -R u+rwX,g-rwx,o-rwx ${data_dir}",
-#    refreshonly => true,
-#    user        => 'root',
-#  }
+  exec { 'ldap-config':
+    path        => '/sbin:/bin:/usr/sbin:/usr/bin:/root/bin',
+    command     => "${base_dir}/ldap-init.sh",
+    refreshonly => true,
+    user        => 'root',
+  }
 
 }
