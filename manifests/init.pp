@@ -2,17 +2,17 @@
 #
 #
 class openldap (
-  $modulepath = undef,
-  $pidfile    = '/run/openldap/slapd.pid',
-  $argsfile   = '/run/openldap/slapd.args',
-  $data_dir   = '/var/lib/ldap',
-  $base_dir   = '/etc/openldap',
-  $suffix     = 'dc=example,dc=com',
-  $rootdn     = 'cn=Manager',
-  $rootpw     = '',
-  $schemas    = [ '/etc/openldap/schema/core.schema'],
-  $modules    = [],
-
+  $modulepath   = undef,
+  $pidfile      = '/run/openldap/slapd.pid',
+  $argsfile     = '/run/openldap/slapd.args',
+  $data_dir     = '/var/lib/ldap',
+  $base_dir     = '/etc/openldap',
+  $suffix       = 'dc=example,dc=com',
+  $rootdn       = 'cn=Manager',
+  $rootpw       = '',
+  $schemas      = [ '/etc/openldap/schema/core.schema'],
+  $modules      = [],
+  $service_name = 'slapd',
 )
 {
 
@@ -22,5 +22,6 @@ class openldap (
   anchor  { 'openldap::start': }->
   class   { 'openldap::base': } ->
   class   { 'openldap::config': } ->
+  class   { 'openldap::service': } ->
   anchor  { 'openldap::end': }
 }
