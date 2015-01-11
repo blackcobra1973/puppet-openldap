@@ -32,11 +32,27 @@ class openldap::config(
     require => File[$base_dir]
   }
 
-  file { $openldap::data_dir:
+  file { $data_dir:
     ensure => directory,
     owner  => 'ldap',
     group  => 'ldap',
     mode   => '0700',
+  }
+
+  file { "${data_dir}/db":
+    ensure  => directory,
+    owner   => 'ldap',
+    group   => 'ldap',
+    mode    => '0700',
+    require => File[$data_dir],
+  }
+
+  file { "${data_dir}/logs":
+    ensure  => directory,
+    owner   => 'ldap',
+    group   => 'ldap',
+    mode    => '0700',
+    require => File[$data_dir],
   }
 
   ### Add extra schema files
@@ -49,12 +65,12 @@ class openldap::config(
   ### Required configuration files
   file { 'DB_CONFIG':
     ensure  => file,
-    path    => "${openldap::data_dir}/DB_CONFIG",
+    path    => "${data_dir}/DB_CONFIG",
     content => template('openldap/DB_CONFIG.erb'),
     owner   => 'ldap',
     group   => 'ldap',
     mode    => '0644',
-    require => File[$openldap::data_dir],
+    require => File[$data_dir],
   }
 
   file { 'slapd.conf':
