@@ -32,21 +32,18 @@ class openldap::config(
     require => File[$base_dir]
   }
 
-  file { "${base_dir}/schema":
-    ensure  => directory,
-    source  => 'puppet:///modules/openldap/schema',
-    recurse => true,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => File[$base_dir]
-  }
-
   file { $openldap::data_dir:
     ensure => directory,
     owner  => 'ldap',
     group  => 'ldap',
     mode   => '0700',
+  }
+
+  ### Add extra schema files
+  $extra_schemas = hiera('openldap::extra_schemas')
+
+  openldap::resource::extra_schemas{ $extra_schemas:
+    base_dir => $base_dir,
   }
 
   ### Required configuration files
