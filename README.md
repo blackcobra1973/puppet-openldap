@@ -1,0 +1,2 @@
+# OpenLDAP Puppet module
+
