@@ -3,6 +3,15 @@
 # - initial configuration of OpenLDAP.
 #
 class openldap::config(
+  $modulepath = $openldap::modulepath,
+  $pidfile    = $openldap::pidfile,
+  $argsfile   = $openldap::argsfile,
+  $data_dir   = $openldap::data_dir,
+  $suffix     = $openldap::suffix,
+  $rootdn     = $openldap::rootdn,
+  $rootpw     = $openldap::rootpw,
+  $schemas    = $openldap::schemas,
+  $modules    = $openldap::modules,
 )
 {
   ### Required directories + permissions
