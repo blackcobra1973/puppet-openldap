@@ -7,7 +7,6 @@ class openldap (
   $argsfile   = '/run/openldap/slapd.args',
   $data_dir   = '/var/lib/ldap',
   $base_dir   = '/etc/openldap',
-  $config_dir = "${base_dir}/slapd.d",
   $suffix     = 'dc=example,dc=com',
   $rootdn     = 'cn=Manager',
   $rootpw     = '',
@@ -17,6 +16,7 @@ class openldap (
 )
 {
 
+  $config_dir = "${base_dir}/slapd.d"
 
   ### Declaring calculated variables
   anchor  { 'openldap::start': }->
