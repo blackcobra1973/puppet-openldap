@@ -10,6 +10,7 @@ class openldap (
   $suffix       = 'dc=example,dc=com',
   $rootdn       = 'cn=Manager',
   $rootpw       = '',
+  $configpw     = '',
   $schemas      = [ '/etc/openldap/schema/core.schema'],
   $modules      = [],
   $service_name = 'slapd',
