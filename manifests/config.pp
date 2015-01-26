@@ -32,6 +32,13 @@ class openldap::config(
     require => File[$base_dir]
   }
 
+  file { "${base_dir}/ldifs":
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
   file { $data_dir:
     ensure => directory,
     owner  => 'ldap',
