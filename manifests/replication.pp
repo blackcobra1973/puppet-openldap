@@ -20,7 +20,7 @@ if $replication
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    require => "${base_dir}/ldifs"
+    require => File["${base_dir}/ldifs"],
   }
 
   ### Put all Ldif files into the directory
