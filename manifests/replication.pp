@@ -24,36 +24,36 @@ if $replication
   }
 
   ### Put all Ldif files into the directory
-  file { "${rep_dir}/1_Load_Syncprov_Module.ldif":
+  file { "${rep_dir}/01_Load_Syncprov_Module.ldif":
     ensure  => file,
-    source  => 'puppet:///modules/openldap/ldif/1_Load_Syncprov_Module.ldif',
+    source  => 'puppet:///modules/openldap/ldif/01_Load_Syncprov_Module.ldif',
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
     require => File[$rep_dir],
   }
 
-  file { "${rep_dir}/4_Add_olcRootDN.ldif":
+  file { "${rep_dir}/04_Add_olcRootDN.ldif":
     ensure  => file,
-    source  => 'puppet:///modules/openldap/ldif/4_Add_olcRootDN.ldif',
+    source  => 'puppet:///modules/openldap/ldif/04_Add_olcRootDN.ldif',
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
     require => File[$rep_dir],
   }
 
-  file { "${rep_dir}/6_Add_Syncprov_To_Config.ldif":
+  file { "${rep_dir}/06_Add_Syncprov_To_Config.ldif":
     ensure  => file,
-    source  => 'puppet:///modules/openldap/ldif/6_Add_Syncprov_To_Config.ldif',
+    source  => 'puppet:///modules/openldap/ldif/06_Add_Syncprov_To_Config.ldif',
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
     require => File[$rep_dir],
   }
 
-  file { "${rep_dir}/8_Add_syncprov_Module_to_HDB_Database.ldif":
+  file { "${rep_dir}/08_Add_syncprov_Module_to_HDB_Database.ldif":
     ensure  => file,
-    source  => 'puppet:///modules/openldap/ldif/8_Add_syncprov_Module_to_HDB_Database.ldif',
+    source  => 'puppet:///modules/openldap/ldif/08_Add_syncprov_Module_to_HDB_Database.ldif',
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
