@@ -12,6 +12,8 @@ class openldap (
   $rootpw       = '',
   $configpw     = '',
   $replication  = false,
+  $olcserverid  = undef,
+  $olcservers   = [],
   $schemas      = [ '/etc/openldap/schema/core.schema'],
   $modules      = [],
   $service_name = 'slapd',
