@@ -11,6 +11,7 @@ class openldap (
   $rootdn       = 'cn=Manager',
   $rootpw       = '',
   $configpw     = '',
+  $replication  = false,
   $schemas      = [ '/etc/openldap/schema/core.schema'],
   $modules      = [],
   $service_name = 'slapd',
@@ -24,5 +25,6 @@ class openldap (
   class   { 'openldap::base': } ->
   class   { 'openldap::config': } ->
   class   { 'openldap::service': } ->
+  class   { 'openldap::replication': } ->
   anchor  { 'openldap::end': }
 }
