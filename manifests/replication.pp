@@ -3,11 +3,12 @@
 # Create openldap LDIF Files for N-Way Master-Master Setup
 #
 class openldap::replication(
-  $base_dir     = $openldap::base_dir,
-  $configpw     = $openldap::configpw,
-  $replication  = $openldap::replication,
-  $olcserverid  = $openldap::olcserverid,
-  $olcservers   = $openldap::olcservers,
+  $base_dir         = $openldap::base_dir,
+  $configpw         = $openldap::configpw,
+  $replication      = $openldap::replication,
+  $ldapcluster_name = $openldap::ldapcluster_name,
+  $olcserverid      = $openldap::olcserverid,
+  $olcservers       = $openldap::olcservers,
 )
 {
 if $replication
