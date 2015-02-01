@@ -3,12 +3,12 @@
 # Create openldap LDIF Files for N-Way Master-Master Setup
 #
 class openldap::replication(
-  $base_dir         = $openldap::base_dir,
-  $configpw         = $openldap::configpw,
-  $replication      = $openldap::replication,
-  $ldapcluster_name = $openldap::ldapcluster_name,
-  $olcserverid      = $openldap::olcserverid,
-  $olcservers       = $openldap::olcservers,
+  $base_dir           = $openldap::base_dir,
+  $configpw           = $openldap::configpw,
+  $replication        = $openldap::replication,
+  $olcserverid        = $openldap::olcserverid,
+  $olcservers         = $openldap::olcservers,
+  $ldapcluster        = $openldap::ldapcluster,
 )
 {
 if $replication
@@ -72,6 +72,7 @@ if $replication
   }
 
   ### Create all LDIFs from templates
+  ### Creates the 02_Set_olcServerID.ldif file
   file { '02_Set_olcServerID.ldif':
     ensure  => file,
     path    => "${rep_dir}/02_Set_olcServerID.ldif",
@@ -82,6 +83,7 @@ if $replication
     require =>  File[$rep_dir],
   }
 
+  ### Creates the 03_Set_Config_Password.ldif file
   file { '03_Set_Config_Password.ldif':
     ensure  => file,
     path    => "${rep_dir}/03_Set_Config_Password.ldif",
@@ -92,15 +94,8 @@ if $replication
     require =>  File[$rep_dir],
   }
 
-  file { '05_Add_Configuration_replication.ldif':
-    ensure  => file,
-    path    => "${rep_dir}/05_Add_Configuration_replication.ldif",
-    content => template('openldap/ldif/05_Add_Configuration_replication.ldif.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0400',
-    require =>  File[$rep_dir],
-  }
+  ### Creates the 05_Add_Configuration_replication.ldif file
+  create_resources('openldap::resource::replication_step05',$openldap::ldapcluster)
 
 
 }

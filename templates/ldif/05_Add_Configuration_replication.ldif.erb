@@ -1,6 +1,21 @@
 dn: cn=config
 changetype: modify
 replace: olcServerID
-<% [olcservers].flatten.each do |olcserver| -%>
-olcServerID: <%= olcserver %>
+<% keyarray = [] -%>
+<% @members.each do |member| -%>
+<%   if scope.lookupvar('openldap::ldapcluster_member').has_key?(member) -%>
+<%     scope.lookupvar('openldap::ldapcluster_member')[member].each do |ldapsrv| -%>
+<%       if not(keyarray.include?(ldapsrv)) -%>
+<%         keyarray.push(ldapsrv) -%>
+<%         if scope.lookupvar('openldap::ldapcluster_srv').has_key?(ldapsrv) -%>
+<%           ldapsrvhash = scope.lookupvar('openldap::ldapcluster_srv')[ldapsrv] -%>
+<%           output="olcServerID: %s ldap://%s\n" % [ ldapsrvhash["ldap_id"],ldapsrvhash["hostname"] ] -%>
+<%           if ldapsrvhash.has_key?("options") -%>
+<%             output = ldapsrvhash["options"]+" "+output -%>
+<%           end -%>
+<%=          output -%>
+<%         end -%>
+<%       end -%>
+<%     end -%>
+<%   end -%>
 <% end -%>
