@@ -2,6 +2,7 @@ dn: olcDatabase={1}hdb,cn=config
 changetype: modify
 add: olcSyncRepl
 <% keyarray = [] -%>
+<% rid = 100 -%>
 <% @members.each do |member| -%>
 <%   if scope.lookupvar('openldap::ldapcluster_member').has_key?(member) -%>
 <%     scope.lookupvar('openldap::ldapcluster_member')[member].each do |ldapsrv| -%>
@@ -9,7 +10,7 @@ add: olcSyncRepl
 <%         keyarray.push(ldapsrv) -%>
 <%         if scope.lookupvar('openldap::ldapcluster_srv').has_key?(ldapsrv) -%>
 <%           ldapsrvhash = scope.lookupvar('openldap::ldapcluster_srv')[ldapsrv] -%>
-<%           output="olcSyncRepl: rid=%s provider=ldap://%s binddn=\"cn=admin,cn=config\" bindmethod=simple credentials=%s searchbase=\"%s\" type=refreshAndPersist interval=00:00:00:10 retry=\"5 5 300 5\" timeout=1\n" % [ ldapsrvhash["ldap_id"],ldapsrvhash["hostname"],ldapsrvhash["credentials"], ldapsrvhash["searchbase"] ] -%>
+<%           output="olcSyncRepl: rid=%03d provider=ldap://%s binddn=\"cn=admin,cn=config\" bindmethod=simple credentials=%s searchbase=\"%s\" type=refreshAndPersist interval=00:00:00:10 retry=\"5 5 300 5\" timeout=1\n" % [ rid += 1,ldapsrvhash["hostname"],ldapsrvhash["credentials"], ldapsrvhash["searchbase"] ] -%>
 <%=          output -%>
 <%         end -%>
 <%       end -%>
