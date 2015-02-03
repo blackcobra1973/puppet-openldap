@@ -4,6 +4,25 @@ add: olcSyncRepl
 olcSyncRepl: rid=001 provider=ldap://ldap1.gremaud.local binddn="cn=admin,cn=config" bindmethod=simple credentials=test searchbase="cn=config" type=refreshAndPersist retry="5 5 300 5" timeout=1
 olcSyncRepl: rid=002 provider=ldap://ldap2.gremaud.local binddn="cn=admin,cn=config" bindmethod=simple credentials=test searchbase="cn=config" type=refreshAndPersist retry="5 5 300 5" timeout=1
 olcSyncRepl: rid=003 provider=ldap://ldap3.gremaud.local binddn="cn=admin,cn=config" bindmethod=simple credentials=test searchbase="cn=config" type=refreshAndPersist retry="5 5 300 5" timeout=1
+
+<% keyarray = [] -%>
+<% @members.each do |member| -%>
+<%   if scope.lookupvar('openldap::ldapcluster_member').has_key?(member) -%>
+<%     scope.lookupvar('openldap::ldapcluster_member')[member].each do |ldapsrv| -%>
+<%       if not(keyarray.include?(ldapsrv)) -%>
+<%         keyarray.push(ldapsrv) -%>
+<%         if scope.lookupvar('openldap::ldapcluster_srv').has_key?(ldapsrv) -%>
+<%           ldapsrvhash = scope.lookupvar('openldap::ldapcluster_srv')[ldapsrv] -%>
+<%           output="olcSyncRepl: rid=%s provider=ldap://%s binddn=\"cn=admin,cn=config\" bindmethod=simple credentials=%s searchbase=\"cn=config\" type=refreshAndPersist retry=\"5 5 300 5\" timeout=1\n" % [ ldapsrvhash["ldap_id"],ldapsrvhash["hostname"],ldapsrvhash["credentials"] ] -%>
+<%=          output -%>
+<%         end -%>
+<%       end -%>
+<%     end -%>
+<%   end -%>
+<% end -%>
+
+
+
 -
 add: olcMirrorMode
 olcMirrorMode: TRUE
