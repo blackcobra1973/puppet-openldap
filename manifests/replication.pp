@@ -102,5 +102,8 @@ if $replication
   ### Creates the 07_Add_SyncRepl_Between_Servers_TLS.ldif file
   create_resources('openldap::resource::replication_step07',$openldap::ldapcluster)
 
+  ### Creates the 09_Add_SyncRepl_Between_Servers.ldif file
+  create_resources('openldap::resource::replication_step09',$openldap::ldapcluster)
+
 }
 }
