@@ -1,3 +1,4 @@
 dn: olcDatabase={0}config,cn=config
+changetype: modify
 add: olcRootDN
 olcRootDN: cn=admin,cn=config
