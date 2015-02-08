@@ -26,9 +26,22 @@ if $replication
   }
 
   ### Put all Ldif files into the directory
+
+  ### Creates the 01_Load_Syncprov_Module.ldif file
   file { "${rep_dir}/01_Load_Syncprov_Module.ldif":
     ensure  => file,
     source  => 'puppet:///modules/openldap/ldif/01_Load_Syncprov_Module.ldif',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0400',
+    require => File[$rep_dir],
+  }
+
+  ### Creates the 01b_Load_Syncprov_Module.ldif file.
+  ### Use when the 01 file fails
+  file { "${rep_dir}/01b_Load_Syncprov_Module.ldif":
+    ensure  => file,
+    source  => 'puppet:///modules/openldap/ldif/01b_Load_Syncprov_Module.ldif',
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
