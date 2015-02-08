@@ -25,7 +25,11 @@ pidfile   <%= pidfile %>
 argsfile  <%= argsfile %>
 
 # Load dynamic backend modules:
+<% if @modulepath -%>
+modulepath  <%= modulepath %>
+<% else -%>
 # modulepath  /usr/lib64/openldap/openldap
+<% end -%>
 # moduleload  back_sock.so
 # moduleload  back_shell.so
 # moduleload  back_relay.so
