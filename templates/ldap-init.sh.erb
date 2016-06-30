@@ -1,12 +1,12 @@
 #!/bin/bash
 
-chmod -R a+rwX <%= config_dir %>
-rm -rf <%= config_dir %>/*
-slaptest -f <%= base_dir %>/slapd.conf -F <%= config_dir %>
-chown -R ldap. <%= config_dir %>
-chmod -R u+rwX,g-rwx,o-rwx <%= config_dir %>
+chmod -R a+rwX <%= @config_dir %>
+rm -rf <%= @config_dir %>/*
+slaptest -f <%= @base_dir %>/slapd.conf -F <%= @config_dir %>
+chown -R ldap. <%= @config_dir %>
+chmod -R u+rwX,g-rwx,o-rwx <%= @config_dir %>
 
-chown -R ldap. <%= data_dir %>
-chmod -R u+rwX,g-rwx,o-rwx <%= data_dir %>
+chown -R ldap. <%= @data_dir %>
+chmod -R u+rwX,g-rwx,o-rwx <%= @data_dir %>
 
 exit 0
